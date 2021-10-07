@@ -1,0 +1,21 @@
+---
+
+- name: Executing Connectivity Tests
+  hosts:  all
+  gather_facts: false
+  ignore_errors: true
+#  ignore_unreachable: yes
+
+  tasks:
+    - name: Check Connectivity for Ansible Managed Nodes - Windows
+      win_ping:
+      register: ping_result_windows
+      # when: ansible_facts['os_family'] == "Windows"
+            
+    - name: List of Reachable Managed Nodes       
+      debug: msg="Congratulations !!, You are able to reach managed node"
+      when: '"ping" in ping_result_windows and ping_result_windows.ping=="pong"'
+
+    - name: List of Unreachable Managed Nodes       
+      debug: msg="Sorry !!, You are Unable to reach managed node"
+      when: '"unreachable" in ping_result_windows and ping_result_windows.unreachable'
