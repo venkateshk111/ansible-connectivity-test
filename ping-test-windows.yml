@@ -4,7 +4,7 @@
   hosts:  all
   gather_facts: false
   ignore_errors: true
-#  ignore_unreachable: yes
+  ignore_unreachable: yes
 
   tasks:
     - name: Check Connectivity for Ansible Managed Nodes - Windows
